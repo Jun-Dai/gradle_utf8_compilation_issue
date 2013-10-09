@@ -47,7 +47,7 @@ tasks.withType(Compile) {
 // No effect:
 /*
 tasks.withType(Compile) {
-    sourceTypeCompatibility = 1.6
+    ext.sourceTypeCompatibility = 1.6
 }
 */
 
