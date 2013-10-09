@@ -1,0 +1,68 @@
+// http://stackoverflow.com/questions/19224617/how-can-you-get-gradle-to-fail-the-build-when-theres-a-non-utf8-character-in-th
+
+// From Igor, on stackoverflow:
+
+/*
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+
+  tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:0.5.+'
+  }
+}*/
+
+apply plugin: 'java'
+
+
+// This will compile fine (as expected):
+/*
+tasks.withType(Compile) {
+  options.encoding = "iso-8859-1"
+}
+*/
+
+
+// This has no effect:
+/*
+tasks.withType(Compile) {
+    options.compilerArgs << '-source'
+    options.compilerArgs << '1.7'
+}
+*/
+
+
+// Doesn't work, but has the effect of not attempting the recompile next time unless you do a "clean"
+/*
+tasks.withType(Compile) {
+    sourceTypeCompatibility = 1.5
+}
+*/
+
+// No effect:
+/*
+tasks.withType(Compile) {
+    sourceTypeCompatibility = 1.6
+}
+*/
+
+// No effect:
+/*
+tasks.withType(Compile) {
+    sourceTypeCompatibility = 1.7
+}
+*/
+
+// This, however, will work:
+/*
+tasks.withType(Compile) {
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+
+}
+*/
